@@ -9,7 +9,7 @@ const isDev = import.meta.env.DEV
 const router = createBrowserRouter([
   {
     path : "/",    
-    element : <Main key={0}/>
+    element : <Main />
   },
 
 ])
