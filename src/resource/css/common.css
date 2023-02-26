@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .loadingWrap{@apply
+        absolute
+        grid
+        place-items-center
+        bg-gray-800
+        w-screen
+        h-screen
+        opacity-40
+    }.loading{@apply
+        text-slate-400
+    }
+}

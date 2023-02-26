@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+    body{@apply
+        m-0
+    }
+}
+
+@layer components{
+    .geoWrap{@apply
+        bg-green-500
+        rounded-full
+        flex
+        flex-wrap
+        items-center
+        h-48
+        w-48
+        xl:h-96
+        xl:w-96
+        cursor-pointer
+        mx-auto
+        my-auto
+    }
+    .iconWrap{@apply
+        /* bg-white */
+        max-h-rounded_full
+        max-w-rounded_full
+        mx-auto
+        my-auto
+    }
+    .geoIcon{@apply
+        w-full
+        h-full
+    }
+}

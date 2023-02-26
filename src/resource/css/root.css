@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+    body{@apply
+        m-0
+    }
+}
+
+@layer components{
+    .mainContainer{@apply
+        relative
+        flex flex-col
+        place-items-center
+        bg-gray-800
+        w-full
+        h-screen
+    }
+    .lastUpdated{@apply
+        /* bg-white */
+        text-slate-400
+        mb-3
+        max-w-fit
+        max-h-fit
+    }
+}
