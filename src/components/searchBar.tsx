@@ -5,8 +5,8 @@ import { loadingstore } from '../resource/js/store'
 
 function SearchBar() : ReactElement{
     const [loadInit] = loadingstore((state)=> [state.loadInit])
-
-    function isChange(e : React.ChangeEventHandler){
+    //임시로... 나중에 수정때 고치기
+    function isChange(e : any){
         console.log(e.target.value)
         return 'a'
     }
