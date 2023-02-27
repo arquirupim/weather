@@ -1,7 +1,12 @@
 import '../css/common.css'
 import axios from 'axios';
-import { loadingstore } from './store';
 
+let intlOption = {
+  timeZone: "Asia/Seoul",
+  dateStyle: "short",
+  timeStyle: "short",
+  hour12: false,
+}
 
 const weatherAdress = import.meta.env.VITE_WEATHER_ADDRESS
 const isDev = import.meta.env.DEV
@@ -17,13 +22,17 @@ function getLocation(){
         const pos = position.coords
         axios.get(weatherAdress+ 'lat=' + pos.latitude + '&lon=' + pos.longitude + '&altitude=' + pos.altitude)
         .then((res)=>{
-          res.data.properties.timeseries.forEach((el : any)=>{
+          res.data.properties.timeseries.forEach((el : any, index : number)=>{
             let time = el.time
             let temp = el.data.instant.details.air_temperature;
             let weather = el.data.next_1_hours?.summary.symbol_code !== undefined ?
               el.data.next_1_hours.summary.symbol_code :
               el.data.next_6_hours?.summary.symbol_code;
-            data.push([time, temp, weather]); 
+            data.push({'time' : new Intl.DateTimeFormat("ko-kr", intlOption).format(new Date(time)),
+                        'temperature' : temp,
+                        'weather' : weather,
+                        'index' : index
+                      }); 
           });
           setTimeout(()=>{
             resolve(data)
@@ -49,7 +58,6 @@ function Alert(props : alert={
   if(props.isLoading === undefined || props.isLoading === false){
     return null;
   }
-  const [loadInit, loadDone] = loadingstore((state)=> [state.loadInit, state.loadDone])
 
     return(
       <div className='loadingWrap'>
@@ -58,5 +66,35 @@ function Alert(props : alert={
     )
 }
 
+function extent(values : Array<T>, valueof:any) {
+  let min;
+  let max;
+  if (valueof === undefined) {
+    for (const value of values) {
+      if (value != null) {
+        if (min === undefined) {
+          if (value >= value) min = max = value;
+        } else {
+          if (min > value) min = value;
+          if (max < value) max = value;
+        }
+      }
+    }
+  } else {
+    let index = -1;
+    for (let value of values) {
+      if ((value = valueof(value, ++index, values)) != null) {
+        if (min === undefined) {
+          if (value >= value) min = max = value;
+        } else {
+          if (min > value) min = value;
+          if (max < value) max = value;
+        }
+      }
+    }
+  }
+  return [min, max];
+}
 
-export {getLocation, Alert}
+
+export {getLocation, Alert, extent}

@@ -10,7 +10,7 @@
         bg-gray-800
         w-screen
         h-screen
-        opacity-40
+        opacity-80
     }.loading{@apply
         text-slate-400
     }

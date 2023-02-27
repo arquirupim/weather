@@ -1,19 +1,20 @@
 import '../resource/css/root.css'
 import { ReactElement } from 'react'
 import {Alert} from '../resource/js/common'
-import SearchBar from '../components/searchBar'
-import SearchGeo from '../components/geoSearch'
-import { loadingstore } from '../resource/js/store'
+import { loadingstore, weatherStore } from '../resource/js/store'
+import Chart from '../components/chart';
 
 
 
 function Result() : ReactElement{
     const [isLoading] = loadingstore((state)=> [state.isLoading])
-    const time ='00'
+    const [weatherData, setData] = weatherStore((state)=>[state.data, state.setData])
+    // console.log(weatherData)
     return(
-            <div className="mainContainer">
-                result
-            </div>
+        <div className="mainContainer">
+            <Alert isLoading={isLoading} />
+            <Chart></Chart>
+        </div>
     )
 }
 

@@ -1,6 +1,29 @@
 import { create } from 'zustand'
 
-interface loadingStore {
+interface WeatherStore{
+    data : Array<object>,
+    setData : (data : object) => void,
+}
+
+const weatherConfig = (config:any) => (set:any, get:any, api:any) =>
+    config(
+        (args:any)=>{
+            // console.log(args)
+            set(args)
+            // console.log(get())
+        },
+        get,
+        api
+    )
+
+const weatherStore = create<WeatherStore>(
+    weatherConfig((set : Function)=>({
+        data : [],
+        setData : (input : any) => set({data : input})
+    }))
+)
+
+interface LoadingStore {
     isLoading : boolean,
     loadInit : () => void,
     loadDone : () => void,
@@ -17,7 +40,7 @@ const loadingConfig = (config:any) => (set:any, get:any, api:any) =>
         api
     )
 
-const loadingstore = create<loadingStore>(
+const loadingstore = create<LoadingStore>(
     loadingConfig((set : Function)=>({
         isloading : false,
         loadInit : () => set({isLoading : true}),
@@ -25,4 +48,4 @@ const loadingstore = create<loadingStore>(
     }))
 )
 
-export {loadingstore}
+export {loadingstore, weatherStore}
