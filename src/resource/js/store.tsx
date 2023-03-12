@@ -8,7 +8,7 @@ interface WeatherStore{
 const weatherConfig = (config:any) => (set:any, get:any, api:any) =>
     config(
         (args:any)=>{
-            // console.log(args)
+            console.log(args)
             set(args)
             // console.log(get())
         },

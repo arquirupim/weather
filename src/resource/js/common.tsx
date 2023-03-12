@@ -16,7 +16,7 @@ function getLocation(){
     try{
       navigator.geolocation.getCurrentPosition((position) =>{
         if(import.meta.env.DEV == true){
-          console.log(position.coords.latitude + ', ' + position.coords.longitude +', ' + position.coords.altitude);
+          // console.log(position.coords.latitude + ', ' + position.coords.longitude +', ' + position.coords.altitude);
         }
         let data : any[] = [];
         const pos = position.coords
@@ -28,12 +28,14 @@ function getLocation(){
             let weather = el.data.next_1_hours?.summary.symbol_code !== undefined ?
               el.data.next_1_hours.summary.symbol_code :
               el.data.next_6_hours?.summary.symbol_code;
-            data.push({'time' : new Intl.DateTimeFormat("ko-kr", intlOption).format(new Date(time)),
+            data.push({
+                        // 'time' : new Intl.DateTimeFormat("ko-kr", intlOption).format(new Date(time)),
+                        'time' : new Date(time),
                         'temperature' : temp,
                         'weather' : weather,
-                        'index' : index
                       }); 
           });
+          //로딩 구현 되었는지 확인용
           setTimeout(()=>{
             resolve(data)
           },1000)
@@ -66,35 +68,5 @@ function Alert(props : alert={
     )
 }
 
-function extent(values : Array<T>, valueof:any) {
-  let min;
-  let max;
-  if (valueof === undefined) {
-    for (const value of values) {
-      if (value != null) {
-        if (min === undefined) {
-          if (value >= value) min = max = value;
-        } else {
-          if (min > value) min = value;
-          if (max < value) max = value;
-        }
-      }
-    }
-  } else {
-    let index = -1;
-    for (let value of values) {
-      if ((value = valueof(value, ++index, values)) != null) {
-        if (min === undefined) {
-          if (value >= value) min = max = value;
-        } else {
-          if (min > value) min = value;
-          if (max < value) max = value;
-        }
-      }
-    }
-  }
-  return [min, max];
-}
 
-
-export {getLocation, Alert, extent}
+export {getLocation, Alert}
