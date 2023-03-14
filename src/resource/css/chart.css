@@ -10,6 +10,7 @@
         h-full
     }
     .chart{@apply
+        relative
         bg-white
         flex
         flex-wrap
@@ -24,6 +25,10 @@
         my-auto
     }
     .visx-curves-demo{@apply
+        font-size: 12px;
+    }
+    .tooltip{@apply
+        relative
         font-size: 12px;
     }
 }
